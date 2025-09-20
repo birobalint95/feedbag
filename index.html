@@ -70,11 +70,23 @@
                 clip-path: inset(0 0 0 0); /* Fully visible */
             }
         }
+
+        @media (max-width: 1150px) {
+            .hero-background-image-right,
+            .hero-background-image-left {
+                display: none; /* Hide the images */
+            }
+        }
+
+        /* Dropdown Menu Styling */
+        #dropdown-menu {
+            z-index: 50; /* Ensure it appears above other elements */
+        }
     </style>
 </head>
-<body class="font-sans antialiased text-gray-800">
+<body class="font-sans antialiased text-gray-800 overflow-x-hidden">
     <!-- Hero Section with Vanta.js Background -->
-    <div id="vanta-bg" class="hero-gradient min-h-screen flex flex-col justify-center relative overflow-hidden border-b-8 border-purple-900">
+    <div id="vanta-bg" class="hero-gradient min-h-screen flex flex-col justify-center relative overflow-hidden border-b-8 border-purple-900 w-full">
         <!-- Animated Images -->
         <img src="static/images/animation_1.png" alt="Animation 1" class="hero-background-image-right animated-wipe">
         <img src="static/images/animation_2.png" alt="Animation 2" class="hero-background-image-left animated-wipe">
@@ -101,9 +113,20 @@
                         <i class="fa-solid fa-right-to-bracket"></i>
                         Sign in
                     </button>
-                    <button class="md:hidden text-white">
-                        <i data-feather="menu"></i>
-                    </button>
+                    <!-- Menu Button -->
+                    <div class="relative">
+                        <button id="menu-button" class="md:hidden text-white">
+                            <i data-feather="menu"></i>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div id="dropdown-menu" class="hidden absolute right-0 mt-2 bg-white rounded-lg shadow-lg w-48 overflow-hidden">
+                            <a href="#features" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Features</a>
+                            <a href="#how-it-works" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">How It Works</a>
+                            <a href="#contact" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Contact</a>
+                            <a href="#" onclick="openPopup('signin-popup')" class="block px-4 py-2 text-purple-600 font-bold hover:bg-gray-100">Sign in</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -214,7 +237,7 @@
                 <h3 class="font-bold">Information We Collect</h3>
                 Email addresses – We collect your email address only if you voluntarily provide it, such as when you request a private demo or join our early access waitlist.
                 <h3 class="font-bold">How We Use Your Information</h3>
-                <ul>
+                <ul style="list-style: disc; padding-left: 1.5rem;">
                     <li>To contact you regarding product updates, early access, or demo scheduling.</li>
                     <li>To send occasional updates about our progress.</li>
                 </ul>
@@ -638,6 +661,12 @@
             const popup = document.getElementById('universal-popup');
             popup.classList.add('hidden');
         }
+
+        // Toggle the dropdown menu
+        document.getElementById('menu-button').addEventListener('click', function () {
+            const dropdown = document.getElementById('dropdown-menu');
+            dropdown.classList.toggle('hidden'); // Show/hide the dropdown
+        });
     </script>
 </body>
 </html>
